@@ -1,22 +1,50 @@
 //
 // Created by olivier on 9/15/23.
 //
+#include <fstream>
+#include <iostream>
 #include "../include/Sensor.h"
 
 namespace Sensor {
     template<class T>
+    /**
+     * @return A float between 0 and 1
+     */
     float Sensor<T>::aleaFloatGen() {
         return (float) std::rand() / (float) RAND_MAX;
     }
 
+    /**
+     * @return A random boolean
+     */
     template<class T>
     bool Sensor<T>::aleaBoolGen() {
         return std::rand() % 2;
     }
 
+    /**
+     * @return An int between 0 and RAND_MAX
+     */
     template<class T>
     int Sensor<T>::aleaIntGen() {
-        return std::rand(); //Arbitrary limit on maxium sound intensity
+        return std::rand();
+    }
+
+    /**
+     * @return The data contained in the sensor
+     */
+    template<class T>
+    T Sensor<T>::sendData() {
+        return this->data;
+    }
+
+    /**
+     * Updates the data in the sensor using the aleaValGen method to simulate a real life use
+     * @tparam T
+     */
+    template<class T>
+    void Sensor<T>::update() {
+        this->data = this->aleaValGen();
     }
 
     LightSensor &LightSensor::operator=(const LightSensor &other) {
@@ -24,66 +52,38 @@ namespace Sensor {
         return *this;
     }
 
-    LightSensor::LightSensor() {
-        this->data = false;
+    bool LightSensor::aleaValGen() {
+        return LightSensor::aleaBoolGen();
     }
 
-    bool LightSensor::sendData() {
-        return this->data;
-    }
-
-    void LightSensor::update() {
-        this->data = Sensor::aleaBoolGen();
-    }
-
-    SoundSensor::SoundSensor() {
-        this->data = 0;
-    }
 
     SoundSensor &SoundSensor::operator=(const SoundSensor &other) {
         this->data = other.data;
         return *this;
     }
 
-    void SoundSensor::update() {
-        this->data = (unsigned int) Sensor::aleaIntGen() % MAX_DECIBEL;
+    unsigned int SoundSensor::aleaValGen() {
+        return SoundSensor::aleaIntGen() % MAX_DECIBEL;
     }
 
-    unsigned int SoundSensor::sendData() {
-        return this->data;
-    }
-
-    void TemperatureSensor::update() {
-        this->data = Sensor::aleaFloatGen() * MAX_TEMP;
-    }
 
     TemperatureSensor &TemperatureSensor::operator=(const TemperatureSensor &other) {
         this->data = other.data;
         return *this;
     }
 
-    TemperatureSensor::TemperatureSensor() {
-        this->data = 0.f;
+
+    float TemperatureSensor::aleaValGen() {
+        return TemperatureSensor::aleaFloatGen() * MAX_TEMP;
     }
 
-    float TemperatureSensor::sendData() {
-        return this->data;
-    }
-
-    HumiditySensor::HumiditySensor() {
-        this->data = 0.f;
-    }
 
     HumiditySensor &HumiditySensor::operator=(const HumiditySensor &other) {
         this->data = other.data;
         return *this;
     }
 
-    float HumiditySensor::sendData() {
-        return this->data;
-    }
-
-    void HumiditySensor::update() {
-        this->data = Sensor::aleaFloatGen();
+    float HumiditySensor::aleaValGen() {
+        return HumiditySensor::aleaFloatGen() * 100;
     }
 }

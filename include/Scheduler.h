@@ -17,9 +17,8 @@ private:
     Sensor::HumiditySensor hs;
 public:
     Scheduler();
-    Scheduler(const Server &s);
-    Scheduler &operator=(const Scheduler &other);
     virtual ~Scheduler();
+    Server& getServer();
     void pollSensor(Sensor::Type type);
     void update();
 };

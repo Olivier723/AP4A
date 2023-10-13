@@ -1,4 +1,0 @@
-The temperature is : 82.13°C
-There is not enough light
-The sound level is : 53 dB
-The humidity is at : 0.71%

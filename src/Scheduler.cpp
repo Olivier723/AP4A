@@ -34,5 +34,9 @@ void Scheduler::update() {
     this->pollSensor(Sensor::SND);
 }
 
+Server &Scheduler::getServer() {
+    return this->server;
+}
+
 Scheduler::~Scheduler() = default;
 

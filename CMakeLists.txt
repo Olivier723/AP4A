@@ -10,4 +10,5 @@ add_executable(TP1 main.cpp
         src/Sensor.cpp
         include/Sensor.h
         src/Scheduler.cpp
-        include/Scheduler.h)
+        include/Scheduler.h
+)

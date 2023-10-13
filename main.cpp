@@ -5,8 +5,8 @@
 int main()
 {
     std::srand(std::time(nullptr));
-    std::cout<<"Hello, World!"<<std::endl;
     Scheduler sched = Scheduler();
+    sched.getServer().setConsoleLog(false);
     for(int i = 0; i < 10; ++i){
         sched.update();
     }
