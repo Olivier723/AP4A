@@ -5,22 +5,23 @@
 
 Scheduler::Scheduler() {
     this->server = Server(4, true, true);
-    this->ts = Sensor::TemperatureSensor();
-    this->ss = Sensor::SoundSensor();
-    this->hs = Sensor::HumiditySensor();
-    this->ls = Sensor::LightSensor();
+    this->ts = TemperatureSensor();
+    this->ss = SoundSensor();
+    this->hs = HumiditySensor();
+    this->ls = LightSensor();
 }
 
-void Scheduler::pollSensor(Sensor::Type type) {
-    if(type == Sensor::LGT){
-        this->server.recieveData(ls.sendData(), type);
-    }else if(type == Sensor::TMP){
-        this->server.recieveData(ts.sendData(), type);
-    }else if(type == Sensor::HDT){
-        this->server.recieveData(hs.sendData(), type);
-    }else if(type == Sensor::SND){
-        this->server.recieveData(ss.sendData(), type);
-    }
+void Scheduler::pollSensor(HumiditySensor hs){
+    this->server.recieveData(hs.sendData(), hs.getType());
+}
+void Scheduler::pollSensor(LightSensor ls) {
+    this->server.recieveData(ls.sendData(), ls.getType());
+}
+void Scheduler::pollSensor(SoundSensor ss) {
+    this->server.recieveData(ss.sendData(), ss.getType());
+}
+void Scheduler::pollSensor(TemperatureSensor ts) {
+    this->server.recieveData(ts.sendData(), ts.getType());
 }
 
 void Scheduler::update() {
@@ -28,10 +29,10 @@ void Scheduler::update() {
     this->hs.update();
     this->ss.update();
     this->ts.update();
-    this->pollSensor(Sensor::TMP);
-    this->pollSensor(Sensor::LGT);
-    this->pollSensor(Sensor::HDT);
-    this->pollSensor(Sensor::SND);
+    this->pollSensor(ls);
+    this->pollSensor(hs);
+    this->pollSensor(ss);
+    this->pollSensor(ts);
 }
 
 Server &Scheduler::getServer() {

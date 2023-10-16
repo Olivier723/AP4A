@@ -59,12 +59,9 @@ void Server::setFileLog(bool state) {
 }
 
 
-void Server::recieveData(unsigned int data, Sensor::Type id) {
-    if(id == Sensor::SND){
-        this->ssData = data;
-    }
+void Server::recieveData(unsigned int data, SensorType id) {
     if(this->fileLogging){
-        this->fileWrite(data, id);
+        Server::fileWrite(data, id);
     }
     if(this->consoleLogging){
         std::cout << *this;
@@ -72,39 +69,26 @@ void Server::recieveData(unsigned int data, Sensor::Type id) {
 
 }
 
-void Server::recieveData(float data, Sensor::Type id) {
-    switch(id){
-        case Sensor::TMP:
-            this->tsData = data;
-            break;
-        case Sensor::HDT:
-            this->hsData = data;
-            break;
-        default:
-            break;
-    }
+void Server::recieveData(float data, SensorType id) {
     if(this->fileLogging){
-        this->fileWrite(data, id);
+        Server::fileWrite(data, id);
     }
     if(this->consoleLogging){
         std::cout << *this;
     }
 }
 
-void Server::recieveData(bool data, Sensor::Type id) {
-    if(id == Sensor::LGT){
-        this->lsData = data;
-    }
+void Server::recieveData(bool data, SensorType id) {
     if(this->fileLogging){
-        this->fileWrite(data, id);
+        Server::fileWrite(data, id);
     }
     if(this->consoleLogging){
         std::cout << *this;
     }
 }
 
-void Server::fileWrite(unsigned int data, Sensor::Type t) const{
-    std::ofstream ofs("../logs/soundsensor.log", std::ios::out | std::ios::app);
+void Server::fileWrite(unsigned int data, SensorType t){
+    std::ofstream ofs("../logs/soundsensor.log", std::ios::app);
     if(ofs.fail()){
         std::cerr << "[ERROR] Cannot open ../logs/soundsensor.log" << std::endl;
         return;
@@ -113,17 +97,19 @@ void Server::fileWrite(unsigned int data, Sensor::Type t) const{
     ofs.close();
 }
 
-void Server::fileWrite(float data, Sensor::Type t) const{
+void Server::fileWrite(float data, SensorType t){
     std::string name;
     switch(t){
-        case Sensor::HDT:
+        case HMDT:
             name = "../logs/humiditysensor.log";
             break;
-        case Sensor::TMP:
+        case TEMP:
             name = "../logs/tempsensor.log";
             break;
+        default:
+            return;
     }
-    std::ofstream ofs(name, std::ios::out | std::ios::app);
+    std::ofstream ofs(name, std::ios::app);
     if(ofs.fail()){
         std::cerr << "[ERROR] Cannot open " << name << std::endl;
         return;
@@ -131,19 +117,21 @@ void Server::fileWrite(float data, Sensor::Type t) const{
     ofs.setf(std::ios::fixed);
     ofs.precision(Server::FLOAT_PRECISION);
     switch(t){
-        case Sensor::HDT:
+        case HMDT:
             ofs << "Humidity : " << data << " %\n";
             break;
-        case Sensor::TMP:
+        case TEMP:
             ofs << "Temperature : " << data << " °C\n";
             break;
+        default:
+            return;
     }
 
     ofs.close();
 }
 
-void Server::fileWrite(bool data, Sensor::Type t) const{
-    std::ofstream ofs("../logs/lightsensor.log", std::ios::out | std::ios::app);
+void Server::fileWrite(bool data, SensorType t){
+    std::ofstream ofs("../logs/lightsensor.log", std::ios::app);
     if(ofs.fail()){
         std::cerr << "[ERROR] Cannot open ../logs/lightsensor.log" << std::endl;
         return;

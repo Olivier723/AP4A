@@ -11,15 +11,19 @@
 class Scheduler{
 private:
     Server server;
-    Sensor::LightSensor ls;
-    Sensor::TemperatureSensor ts;
-    Sensor::SoundSensor ss;
-    Sensor::HumiditySensor hs;
+    LightSensor ls;
+    TemperatureSensor ts;
+    SoundSensor ss;
+    HumiditySensor hs;
 public:
     Scheduler();
     virtual ~Scheduler();
     Server& getServer();
-    void pollSensor(Sensor::Type type);
+
+    void pollSensor(LightSensor ls);
+    void pollSensor(SoundSensor ss);
+    void pollSensor(TemperatureSensor ts);
+    void pollSensor(HumiditySensor hs);
     void update();
 };
 

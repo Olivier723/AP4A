@@ -7,100 +7,110 @@
 #define PURE 0
 #include <ostream>
 
-namespace Sensor {
-    enum Type {
-        TMP,
-        HDT,
-        SND,
-        LGT
-    };
+enum SensorType {
+    NONE,
+    TEMP,
+    HMDT,
+    SND ,
+    LGHT,
+};
 
-    template<class T>
-    class Sensor {
-    protected:
-        T data;
+template<class T>
+class Sensor {
+protected:
+    T data;
 
-        static float aleaFloatGen();
+    SensorType type;
 
-        static bool aleaBoolGen();
+    static float aleaFloatGen();
 
-        static int aleaIntGen();
+    static bool aleaBoolGen();
 
-        Sensor();
-    public:
+    static int aleaIntGen();
 
-        virtual T sendData();
-
-        /**
-         * Updates the data of the sensor using the appropriate random value generator
-         */
-        virtual void update();
-
-        virtual T aleaValGen() = PURE;
-    };
-
-    // If I put this in the .cpp file, the linker complains;
-    // If I leave it here, it works
-    // Why ???
-    template<class T>
-    Sensor<T>::Sensor() {
+    Sensor() {
         this->data = 0;
-    }
+        this->type = NONE;
+    };
+public:
 
-    class LightSensor : public Sensor<bool> {
-    private:
-        bool aleaValGen() override;
-    public:
-        LightSensor() : Sensor<bool>() {};
+    virtual T sendData();
 
-        LightSensor &operator=(const LightSensor &other);
+    /**
+     * Updates the data of the sensor using the appropriate random value generator
+     */
+    virtual void update();
 
-        ~LightSensor() = default;
+    virtual T aleaValGen() = PURE;
+
+    SensorType getType() {
+        return this->type;
+    };
+};
+
+class LightSensor : public Sensor<bool> {
+private:
+    bool aleaValGen() override;
+public:
+    LightSensor() : Sensor<bool>() {
+        this->type = LGHT;
     };
 
-    class SoundSensor : public Sensor<unsigned int> {
-    private:
-        /**
-         * Put an upper ceilling on the decibel range.
-         */
-        static const unsigned int MAX_DECIBEL = 200;
+    LightSensor &operator=(const LightSensor &other);
 
-        unsigned int aleaValGen() override;
-    public:
-        SoundSensor() : Sensor<unsigned int>() {};
+    ~LightSensor() = default;
+};
 
-        SoundSensor &operator=(const SoundSensor &other);
+class SoundSensor : public Sensor<unsigned int> {
+private:
+    /**
+     * Put an upper ceilling on the decibel range.
+     */
+    static const unsigned int MAX_DECIBEL = 200;
 
-        ~SoundSensor() = default;
+    unsigned int aleaValGen() override;
+public:
+    SoundSensor() : Sensor<unsigned int>() {
+        this->type = SND;
     };
 
-    class TemperatureSensor : public Sensor<float> {
-    private:
-        /**
-         * Limit the maximum temperature to 100°C as it doesn't make much sense to record higher in a house environment
-         */
-        constexpr static const float MAX_TEMP = 100.f;
+    SoundSensor &operator=(const SoundSensor &other);
 
-        float aleaValGen() override;
-    public:
-        TemperatureSensor() : Sensor<float>() {};
+    ~SoundSensor() = default;
+};
 
-        TemperatureSensor &operator=(const TemperatureSensor &other);
+class TemperatureSensor : public Sensor<float> {
+private:
+    /**
+     * Limit the maximum temperature to 100°C as it doesn't make much sense to record higher in a house environment
+     */
+    constexpr static const float MAX_TEMP = 100.f;
 
-        ~TemperatureSensor() = default;
+    float aleaValGen() override;
+public:
+    TemperatureSensor() : Sensor<float>() {
+        this->type = TEMP;
     };
 
-    class HumiditySensor : public Sensor<float> {
-    private:
-        float aleaValGen() override;
-    public:
-        HumiditySensor() : Sensor<float>() {};
+    TemperatureSensor &operator=(const TemperatureSensor &other);
 
-        HumiditySensor &operator=(const HumiditySensor &other);
+    ~TemperatureSensor() = default;
+};
 
-        ~HumiditySensor() = default;
+class HumiditySensor : public Sensor<float> {
+private:
+    float aleaValGen() override;
+
+public:
+    HumiditySensor() : Sensor<float>() {
+        this->type = HMDT;
     };
-}
+
+    HumiditySensor &operator=(const HumiditySensor &other);
+
+    ~HumiditySensor() = default;
+};
+
 
 #undef PURE
 

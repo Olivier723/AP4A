@@ -15,18 +15,18 @@ private:
     unsigned int ssData;
     float tsData, hsData;
     static const int FLOAT_PRECISION = 2;
-    void fileWrite(unsigned int data, Sensor::Type t) const;
-    void fileWrite(float data, Sensor::Type t) const;
-    void fileWrite(bool data, Sensor::Type t) const;
+    static void fileWrite(unsigned int data, SensorType t);
+    static void fileWrite(float data, SensorType t);
+    static void fileWrite(bool data, SensorType t);
+    void consoleWrite() const;
 public:
     Server();
     Server(const Server &other);
     Server(unsigned int nbrOfSensors, bool consoleLogging, bool fileLogging);
     virtual ~Server();
-    void consoleWrite() const;
-    void recieveData(unsigned int data, Sensor::Type id);
-    void recieveData(float data, Sensor::Type id);
-    void recieveData(bool data, Sensor::Type id);
+    void recieveData(unsigned int data, SensorType id);
+    void recieveData(float data, SensorType id);
+    void recieveData(bool data, SensorType id);
     void setConsoleLog(bool state);
     void setFileLog(bool state);
     Server& operator=(const Server &other);
