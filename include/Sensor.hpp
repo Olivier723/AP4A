@@ -2,8 +2,8 @@
 // Created by olivier on 9/15/23.
 //
 
-#ifndef TP1_SENSOR_H
-#define TP1_SENSOR_H
+#ifndef TP1_SENSOR_HPP
+#define TP1_SENSOR_HPP
 #define PURE 0
 
 #include <iostream>
@@ -65,4 +65,4 @@ public:
 
 #undef PURE
 
-#endif //TP1_SENSOR_H
+#endif //TP1_SENSOR_HPP

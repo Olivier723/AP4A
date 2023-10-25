@@ -7,7 +7,7 @@ set(CMAKE_CXX_FLAGS -Wall)
 add_executable(TP1 main.cpp
         src/Server.cpp
         include/Server.h
-        include/Sensor.h
+        include/Sensor.hpp
         src/Scheduler.cpp
         include/Scheduler.h
         src/LightSensor.cpp

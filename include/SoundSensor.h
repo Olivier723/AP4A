@@ -5,7 +5,7 @@
 #ifndef TP1_SOUNDSENSOR_H
 #define TP1_SOUNDSENSOR_H
 
-#include "Sensor.h"
+#include "Sensor.hpp"
 
 class SoundSensor : public Sensor<unsigned int> {
 private:

@@ -5,7 +5,7 @@
 #ifndef TP1_TEMPERATURESENSOR_H
 #define TP1_TEMPERATURESENSOR_H
 
-#include "Sensor.h"
+#include "Sensor.hpp"
 
 class TemperatureSensor : public Sensor<float> {
 private:

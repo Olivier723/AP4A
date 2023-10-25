@@ -6,7 +6,7 @@
 
 #include <ostream>
 #include <fstream>
-#include "Sensor.h"
+#include "Sensor.hpp"
 
 class Server {
 private:

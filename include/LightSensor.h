@@ -5,7 +5,7 @@
 #ifndef TP1_LIGHTSENSOR_H
 #define TP1_LIGHTSENSOR_H
 
-#include "Sensor.h"
+#include "Sensor.hpp"
 
 class LightSensor : public Sensor<bool> {
 private:

@@ -7,7 +7,7 @@
 
 #include <vector>
 
-#include "Sensor.h"
+#include "Sensor.hpp"
 #include "Server.h"
 #include "LightSensor.h"
 #include "TemperatureSensor.h"
