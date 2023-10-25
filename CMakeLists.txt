@@ -7,8 +7,15 @@ set(CMAKE_CXX_FLAGS -Wall)
 add_executable(TP1 main.cpp
         src/Server.cpp
         include/Server.h
-        src/Sensor.cpp
         include/Sensor.h
         src/Scheduler.cpp
         include/Scheduler.h
+        src/LightSensor.cpp
+        include/LightSensor.h
+        src/SoundSensor.cpp
+        include/SoundSensor.h
+        src/TemperatureSensor.cpp
+        include/TemperatureSensor.h
+        src/HumiditySensor.cpp
+        include/HumiditySensor.h
 )
