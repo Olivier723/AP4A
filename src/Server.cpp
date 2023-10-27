@@ -1,6 +1,5 @@
 #include "../include/Server.h"
-#include <iostream>
-#include <fstream>
+#include <ostream>
 
 Server::Server(){
     this->fileLogging = true;

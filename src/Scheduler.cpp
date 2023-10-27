@@ -11,12 +11,6 @@ Scheduler::Scheduler() {
     this->light_sensors = std::vector<LightSensor>();
 }
 
-template<class T>
-void Scheduler::poll_sensors(const std::vector<T> &sensors) const{
-    for(std::size_t i = 0; i < sensors.size(); i++)
-        this->server.recieveData(sensors[i].send_data(), sensors[i].getType(), i+1);
-}
-
 void Scheduler::update() {
     for(auto &ls : this->light_sensors)
         ls.update();
