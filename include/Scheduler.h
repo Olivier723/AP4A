@@ -23,16 +23,16 @@ private:
     std::vector<HumiditySensor> humid_sensors;
 
     template<class T>
-    void poll_sensors(const std::vector<T> &sensors) const{
-        for(std::size_t i = 0; i < sensors.size(); i++)
-            this->server.recieveData(sensors[i].send_data(), sensors[i].getType(), i+1);
+    void poll_sensors(const std::vector<T> &sensors){
+        for(std::size_t i = 0; i < sensors.size(); i++){
+            this->server.receive_data(sensors[i].send_data(), sensors[i].get_type(), i + 1);
+        }
     }
 public:
-    Scheduler();
+    explicit Scheduler(const Server &server);
     virtual ~Scheduler();
     void update();
-
-
+    
     void add_sensor(const LightSensor& sensor);
     void add_sensor(const SoundSensor& sensor);
     void add_sensor(const TemperatureSensor& sensor);

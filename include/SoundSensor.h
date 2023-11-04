@@ -7,22 +7,25 @@
 
 #include "Sensor.hpp"
 
-class SoundSensor : public Sensor<unsigned int> {
+class SoundSensor final : public Sensor<unsigned int> {
 private:
     /**
-     * Put an upper ceilling on the decibel range.
+     * Put an upper celling on the decibel range.
      */
     static const unsigned int MAX_DECIBEL = 200;
 
     unsigned int alea_val_gen() final;
 public:
+
     SoundSensor() : Sensor<unsigned int>() {
-        this->type = SND;
+        this->type = SensorType::SND;
     };
+
+    SoundSensor(const SoundSensor &other) = default;
 
     SoundSensor &operator=(const SoundSensor &other);
 
-    ~SoundSensor() = default;
+    ~SoundSensor() final = default;
 };
 
 #endif //TP1_SOUNDSENSOR_H

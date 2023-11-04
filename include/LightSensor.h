@@ -7,17 +7,19 @@
 
 #include "Sensor.hpp"
 
-class LightSensor : public Sensor<bool> {
+class LightSensor final : public Sensor<bool> {
 private:
-    bool alea_val_gen() override;
+    bool alea_val_gen() final;
 public:
     LightSensor() : Sensor<bool>() {
-        this->type = LGHT;
+        this->type = SensorType::LGHT;
     };
+
+    LightSensor(const LightSensor &other) = default;
 
     LightSensor &operator=(const LightSensor &other);
 
-    ~LightSensor() = default;
+    ~LightSensor() final = default;
 };
 
 #endif //TP1_LIGHTSENSOR_H

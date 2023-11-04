@@ -1,3 +1,5 @@
-logs/
+logs/*
 /cmake-build-debug/
 .idea
+AP4A_UML.drawio
+AP4A_UML.png

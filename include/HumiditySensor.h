@@ -7,18 +7,19 @@
 
 #include "Sensor.hpp"
 
-class HumiditySensor : public Sensor<float> {
+class HumiditySensor final : public Sensor<float> {
 private:
-    float alea_val_gen() override;
-
+    float alea_val_gen() final;
 public:
     HumiditySensor() : Sensor<float>() {
-        this->type = HMDT;
+        this->type = SensorType::HMDT;
     };
+
+    HumiditySensor(const HumiditySensor &other) = default;
 
     HumiditySensor &operator=(const HumiditySensor &other);
 
-    ~HumiditySensor() = default;
+    ~HumiditySensor() final = default;
 };
 
 

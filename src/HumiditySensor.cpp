@@ -1,7 +1,3 @@
-//
-// Created by olivier on 10/22/23.
-//
-
 #include "../include/HumiditySensor.h"
 
 HumiditySensor &HumiditySensor::operator=(const HumiditySensor &other) {

@@ -1,11 +1,10 @@
-#include <iostream>
-#include <ctime>
 #include "include/Scheduler.h"
 
 int main()
 {
-    std::srand(std::time(nullptr));
-    Scheduler sched = Scheduler();
+
+    Server serv(true, true);
+    Scheduler sched(serv);
     LightSensor ls;
     SoundSensor ss;
     TemperatureSensor ts;

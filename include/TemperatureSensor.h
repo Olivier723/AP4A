@@ -7,22 +7,25 @@
 
 #include "Sensor.hpp"
 
-class TemperatureSensor : public Sensor<float> {
+class TemperatureSensor final : public Sensor<float> {
 private:
     /**
      * Limit the maximum temperature to 100°C as it doesn't make much sense to record higher in a house environment
      */
     constexpr static const float MAX_TEMP = 100.f;
 
-    float alea_val_gen() override;
+    float alea_val_gen() final;
 public:
+
     TemperatureSensor() : Sensor<float>() {
-        this->type = TEMP;
+        this->type = SensorType::TEMP;
     };
+
+    TemperatureSensor(const TemperatureSensor &other) = default;
 
     TemperatureSensor &operator=(const TemperatureSensor &other);
 
-    ~TemperatureSensor() = default;
+    ~TemperatureSensor() final = default;
 };
 
 
